@@ -1,0 +1,40 @@
+name: CI
+run-name: ${{ github.actor }} Pipeline PROCESSING 🚀
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-testing:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+      
+      - name: Lint
+        run: npm run lint:js && npm run lint:css
+
+      - name: Prettier
+        run: npm run prettier
+      
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run:  npm run build
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages 
+          folder: dist

@@ -1,0 +1,57 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true,
+    "jest/globals": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  // "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "simple-import-sort", "jest"],
+  "rules": {
+    "react/prop-types": "off", // Disable prop-types
+    "react/react-in-jsx-scope": "off", // Not needed for React 17+
+    "react/jsx-uses-react": "off", // Not needed for React 17+
+    "react/jsx-uses-vars": "warn",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "simple-import-sort/exports": "error",
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          // `react` first, `next` second, then packages starting with a character
+          ["^react$", "^next", "^[a-z]"],
+          // Packages starting with `@`
+          ["^@"],
+          // Packages starting with `~`
+          ["^~"],
+          // Imports starting with `../`
+          ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+          // Imports starting with `./`
+          ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+          // Style imports
+          ["^.+\\.s?css$"],
+          // Side effect imports
+          ["^\\u0000"]
+        ]
+      }
+    ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
